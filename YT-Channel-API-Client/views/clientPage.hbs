@@ -1,0 +1,75 @@
+<div class="h-12 bg-red-600 drop-shadow-lg flex flex-row p-3 items-center">
+    <a href="/"><img src="../assets/yt_logo_mono_dark.png" alt="yt_logo_mono_dark.png" class="inline h-6"></a>
+    <span class="text-white text-xl font-Poppins font-medium ml-2 mt-2">Data API v3</span>
+</div>
+
+
+<div class="bg-gray-100 shadow-inner w-full items-center pt-6 pb-3 mx-0">   
+    <h1 class="text-6xl font-black font-Poppins text-black text-center my-4" >CHANNEL STATS RETRIEVER</h1>
+    <hr class="mx-auto w-1/2 border-someGray border-opacity-50 border-transparent">
+
+    <div class="max-w-screen-sm flex flex-col justify-center px-6 py-4 mx-auto my-4 ">
+
+        <h4 class="text-black text-opacity-50 text-xl font-normal font-Poppins mx-auto mb-6">Please enter channel name or ID: </h4>
+
+        <form action="/" method="post" class="flex flex-row mx-auto">
+            <input type="text" name="channelName" class="rounded-l-full border-gray-400 text-lg font-Poppins h-12 w-112 border-solid border-l border-t border-b px-5" placeholder="Enter channel name or ID">
+            <button type="submit" class="h-12 bg-red-600 text-white hover:bg-red-500 active:bg-red-700 rounded-r-full border-gray-400 pl-6 pr-7" id="post_button"><i class="fas fa-search fa-lg"></i></button>
+        </form>
+
+    </div>
+</div>    
+ 
+<div class="bg-gray-100 flex flex-row justify-center items-center p-3 mb-4 mx-auto">
+        <img src="{{pic}}" alt="channel thumbnail" class="h-16 rounded-full">
+        <h1 class="text-4xl text-black font-Poppins pb-1 ml-5">{{name}}</h1>
+</div>
+
+<div id="box_container" class="grid gap-8 justify-around px-8">
+
+    <div class="box box-padding">
+        <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">SUBSCRIBERS</h4>
+        <h2 class="text-6xl body"><b class="font-normal">{{subs.number}}</b>{{subs.letter}}</h2>
+    </div>
+
+    <div class="box box-padding">
+        <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">TOTAL VIEWS</h4>
+        <h2 class="text-6xl body"><b class="font-normal">{{views.number}}</b>{{views.letter}}</h2>
+    </div>
+
+    <div class="box box-padding">
+        <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">TOTAL VIDEOS</h4>
+        <h2 class="text-6xl body"><b class="font-normal">{{vidNum.number}}</b>{{vidNum.letter}}</h2>
+    </div>
+
+    <div class="box box-padding">
+        <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">CREATION DATE & TIME</h4>
+        <h2 class="text-3xl body font-normal mx-auto">{{date}}<br>{{time}}</h2>
+    </div>
+
+    <div class="box box-padding">
+        <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">CUSTOM URL</h4>
+        <h2 class="text-3xl body font-normal mx-auto">https://youtube.com/<br>{{url}}</h2>
+    </div>
+    
+    <div class="box box-padding">
+        <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">COUNTRY</h4>
+        <h2 class="text-6xl body">{{country}}</h2>
+    </div>
+    
+    <div class="box box-padding col-start-1 col-end-4 overflow-y-auto">
+        <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">DESCRIPTION</h4>
+        <h2 class="text-2xl body font-normal">{{about}}</h2>
+    </div>
+    
+</div>
+
+
+<style scoped>
+
+#box_container {
+    grid-template-columns: repeat(3,1fr);
+    grid-auto-rows: minmax(200px, auto);
+}
+
+</style>

@@ -1,0 +1,22 @@
+Done:
+---------------------------------------------------
+
+  - api that gets stats from youtube channel {
+	= gets how many subs, how many vids, channel about, etc.
+    }
+
+  - Error checking {
+	= if there are no results?
+	= sends request with messed up data?
+    }
+
+  - Clean up code
+
+  - See if you can incorporate helmet and/or joi
+
+
+Next:
+---------------------------------------------------
+
+  - Create an app that takes advantage of currently made API
+
