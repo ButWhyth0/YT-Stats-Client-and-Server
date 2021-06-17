@@ -25,44 +25,44 @@
         <h1 class="text-4xl text-black font-Poppins pb-1 ml-5">{{name}}</h1>
 </div>
 
-<div id="box_container" class="grid gap-8 justify-around px-8">
+<ul id="box_container" class="grid gap-8 justify-around px-8">
 
-    <div class="box box-padding">
+    <li id="sub_box" class="box box-padding">
         <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">SUBSCRIBERS</h4>
         <h2 class="text-6xl body"><b class="font-normal">{{subs.number}}</b>{{subs.letter}}</h2>
-    </div>
+    </li>
 
-    <div class="box box-padding">
+    <li id="view_box" class="box box-padding">
         <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">TOTAL VIEWS</h4>
         <h2 class="text-6xl body"><b class="font-normal">{{views.number}}</b>{{views.letter}}</h2>
-    </div>
+    </li>
 
-    <div class="box box-padding">
+    <li id="video_box" class="box box-padding">
         <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">TOTAL VIDEOS</h4>
         <h2 class="text-6xl body"><b class="font-normal">{{vidNum.number}}</b>{{vidNum.letter}}</h2>
-    </div>
+    </li>
 
-    <div class="box box-padding">
+    <li id="date_box" class="box box-padding">
         <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">CREATION DATE & TIME</h4>
         <h2 class="text-3xl body font-normal mx-auto">{{date}}<br>{{time}}</h2>
-    </div>
+    </li>
 
-    <div class="box box-padding">
+    <li  id="url_box" class="box box-padding">
         <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">CUSTOM URL</h4>
-        <h2 class="text-3xl body font-normal mx-auto">https://youtube.com/<br>{{url}}</h2>
-    </div>
+        <h2 class="text-3xl body font-normal mx-auto">{{url}}</h2>
+    </li>
     
-    <div class="box box-padding">
+    <li id="country_box" class="box box-padding">
         <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">COUNTRY</h4>
         <h2 class="text-6xl body">{{country}}</h2>
-    </div>
+    </li>
     
-    <div class="box box-padding col-start-1 col-end-4 overflow-y-auto">
+    <li id="description_box" class="box box-padding col-start-1 col-end-4 overflow-y-auto">
         <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">DESCRIPTION</h4>
         <h2 class="text-2xl body font-normal">{{about}}</h2>
-    </div>
+    </li>
     
-</div>
+</ul>
 
 
 <style scoped>
@@ -73,3 +73,18 @@
 }
 
 </style>
+
+<script>
+
+if('{{url}}' == '' ) {
+    console.log('monke');
+} else {
+    console.log('not monke');
+}
+
+var urlBox = document.getElementById('url_box');
+console.log(urlBox);
+
+
+
+</script>

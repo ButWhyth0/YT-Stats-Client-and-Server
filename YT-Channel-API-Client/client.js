@@ -43,19 +43,24 @@ app.post('/', async ({body},res) => {
             const channelViews = data.channelViews;
             const channelNumOfVids = data.channelNumOfVids;
 
+            // Splits the data n
             const subs = {
-                number: channelSubs.replace(/M|K/g, letter => ''),
-                letter: channelSubs[channelSubs.length-1]
+                number: channelSubs.replace(/M|K/i, letter => ''),
+                letter: channelSubs.split('').some(char => char === 'M' || char === 'K') ? 
+                        channelSubs.split('').find(char => char === 'M' || char === 'K' ) : '',
             }
 
+
             const views = {
-                number: channelViews.replace(/M|K/g, letter => ''),
-                letter: channelViews[channelViews.length-1]
+                number: channelViews.replace(/M|K/i, letter => ''),
+                letter: channelViews.split('').some(char => char === 'M' || char === 'K') ? 
+                        channelViews.split('').find(char => char === 'M' || char === 'K') : '',
             }
-            
+
             const vidNum = {
-                number: channelNumOfVids.replace(/M|K/g, letter => ''),
-                letter: channelNumOfVids[channelNumOfVids.length-1]
+                number: channelNumOfVids.replace(/M|K/i, letter => ''),
+                letter: channelNumOfVids.split('').some(char => char === 'M' || char === 'K') ?
+                        channelNumOfVids.split('').find(char => char === 'M' || char === 'K') : '',
             }
             
 
@@ -68,7 +73,7 @@ app.post('/', async ({body},res) => {
                 name: data.channelName,
                 date: data.channelCreationDate,
                 time: data.channelCreationTime,
-                url: data.channelURL,
+                url: data.channelURL === 'N/A' ? null : `https://youtube.com/${data.channelURL}`,
                 country: data.channelCountry,
                 about: data.channelAbout,
                 id: data.channelID,
