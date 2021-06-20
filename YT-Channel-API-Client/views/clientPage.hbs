@@ -59,7 +59,7 @@
     
     <li id="description_box" class="box box-padding col-start-1 col-end-4 overflow-y-auto">
         <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">DESCRIPTION</h4>
-        <h2 class="text-2xl body font-normal">{{about}}</h2>
+        <p class="text-2xl body font-normal text-left">{{about}}</p>
     </li>
     
 </ul>
@@ -76,14 +76,28 @@
 
 <script>
 
-if('{{url}}' == '' ) {
+{{!-- if('{{url}}' == '' ) {
     console.log('monke');
 } else {
     console.log('not monke');
 }
 
-var urlBox = document.getElementById('url_box');
-console.log(urlBox);
+const boxContainer = document.getElementById('box_container').
+
+var urlBox = document.getElementById('url_box').lastElementChild.innerText;
+if (urlBox === '') {
+
+} --}}
+
+
+let aboutText = '{{about}}';
+aboutText = aboutText.split('__').join('<br>');
+console.log(aboutText)
+
+const aboutBox = document.getElementById('description_box').lastElementChild;
+console.log(aboutBox)
+aboutBox.innerHTML = aboutText;
+console.log(document.getElementById('description_box').lastElementChild.innerHTML)
 
 
 

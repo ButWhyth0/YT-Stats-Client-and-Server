@@ -36,8 +36,9 @@ app.post('/', async ({body},res) => {
     if(body.channelName === '') res.redirect('/');
     else {
         try {
-            const {data} = await axios.get(`http://localhost:5500/api/getStats/${body.channelName}`)
-            // console.dir(data);
+            const {data,status} = await axios.get(`http://localhost:5500/api/getStats/${body.channelName}`)
+            console.log(status);
+            
     
             const channelSubs = data.channelSubs;
             const channelViews = data.channelViews;
@@ -45,24 +46,24 @@ app.post('/', async ({body},res) => {
 
             // Splits the data n
             const subs = {
-                number: channelSubs.replace(/M|K/i, letter => ''),
-                letter: channelSubs.split('').some(char => char === 'M' || char === 'K') ? 
-                        channelSubs.split('').find(char => char === 'M' || char === 'K' ) : '',
+                number: channelSubs.replace(/M|K|B/i, letter => ''),
+                letter: channelSubs.split('').some(char => char === 'M' || char === 'K' || char === 'B') ? 
+                        channelSubs.split('').find(char => char === 'M' || char === 'K' || char === 'B') : '',
             }
 
 
             const views = {
-                number: channelViews.replace(/M|K/i, letter => ''),
-                letter: channelViews.split('').some(char => char === 'M' || char === 'K') ? 
-                        channelViews.split('').find(char => char === 'M' || char === 'K') : '',
+                number: channelViews.replace(/M|K|B/i, letter => ''),
+                letter: channelViews.split('').some(char => char === 'M' || char === 'K' || char === 'B') ? 
+                        channelViews.split('').find(char => char === 'M' || char === 'K' || char === 'B') : '',
             }
 
             const vidNum = {
                 number: channelNumOfVids.replace(/M|K/i, letter => ''),
-                letter: channelNumOfVids.split('').some(char => char === 'M' || char === 'K') ?
-                        channelNumOfVids.split('').find(char => char === 'M' || char === 'K') : '',
+                letter: channelNumOfVids.split('').some(char => char === 'M' || char === 'K' || char === 'B') ?
+                        channelNumOfVids.split('').find(char => char === 'M' || char === 'K' || char === 'B') : '',
             }
-            
+        
 
             // Uses handlebars template engine to render a page, with the data being passed through
             res.render('clientPage', {
@@ -73,9 +74,9 @@ app.post('/', async ({body},res) => {
                 name: data.channelName,
                 date: data.channelCreationDate,
                 time: data.channelCreationTime,
-                url: data.channelURL === 'N/A' ? null : `https://youtube.com/${data.channelURL}`,
+                url: data.channelURL === 'N/A' ? null : `https://youtube.com/\n${data.channelURL}`,
                 country: data.channelCountry,
-                about: data.channelAbout,
+                about: data.channelAbout.replace(/\n+/g, lineBreak => '__'),
                 id: data.channelID,
                 pic: data.channelPicURL,
             });

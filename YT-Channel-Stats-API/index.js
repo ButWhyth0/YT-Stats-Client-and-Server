@@ -15,15 +15,15 @@ const app = express();
 // function using the numeral module to format numbers into easier to read form
 const numberFormatting = (num) => {
     if(num>=1000000 && num%1000 !== 0) { // num NOT wholely divisible by 1K & num >= 1M 
-        return numeral(num).format('0.0a').replace(/m|k/g, letter => {
+        return numeral(num).format('0.0a').replace(/m|k|b/g, letter => {
             return letter.toUpperCase(); // replaces every m or k with uppercase
         });
     } else if (num>=1000 && num%1000 !== 0) { // num NOT wholely divisible by 1k & num >= 1K
-        return numeral(num).format('0.00a').replace(/m|k/g, letter => {
+        return numeral(num).format('0.00a').replace(/m|k|b/g, letter => {
             return letter.toUpperCase(); // replaces every m or k with uppercase
         });
     } else { // num wholely divisible by 1K
-        return numeral(num).format('0a').replace(/m|k/g, letter => {
+        return numeral(num).format('0a').replace(/m|k|b/g, letter => {
             return letter.toUpperCase(); // replaces every m or k with uppercase
         });
     }
