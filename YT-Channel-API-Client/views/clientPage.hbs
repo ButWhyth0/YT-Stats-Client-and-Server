@@ -75,30 +75,39 @@
 </style>
 
 <script>
+const urlBox = document.getElementById('url_box');
+const boxContainer = document.getElementById('box_container').childNodes;
+const boxCont = document.getElementById('box_container').children;
+console.log(boxCont)
+let boxList = [];
 
-{{!-- if('{{url}}' == '' ) {
-    console.log('monke');
-} else {
-    console.log('not monke');
+if(urlBox.lastElementChild.innerText === '') {
+    urlBox.lastElementChild.innerText = 'N/A';
+    urlBox.lastElementChild.classList.add('text-6xl');
+    urlBox.lastElementChild.classList.remove('font-normal');
+};
+
+
+for(let i=1;i<boxContainer.length;i++) {
+    if(i%2 == 1) {
+        console.log(boxContainer[i]);
+        boxList.push(boxContainer[i]);   
+    };
 }
 
-const boxContainer = document.getElementById('box_container').
 
-var urlBox = document.getElementById('url_box').lastElementChild.innerText;
-if (urlBox === '') {
-
-} --}}
-
-
+// Stores the raw data into a string
 let aboutText = '{{about}}';
-aboutText = aboutText.split('__').join('<br>');
-console.log(aboutText)
 
 const aboutBox = document.getElementById('description_box').lastElementChild;
-console.log(aboutBox)
-aboutBox.innerHTML = aboutText;
-console.log(document.getElementById('description_box').lastElementChild.innerHTML)
 
+aboutBox.innerHTML = aboutText.split('__').join('<br>');
+
+if(aboutBox.innerText==='N/A') {
+    aboutBox.classList.add('text-6xl');
+    aboutBox.classList.remove('font-normal');
+
+}
 
 
 </script>

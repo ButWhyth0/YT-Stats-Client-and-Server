@@ -85,7 +85,7 @@ app.get('/api/getStats/:id', async (req,res) => {
             const response_1 = await axios.get(searchAPIUrl);
 
             /* ------- If there are no search results for the channel name either ------- */
-            if(response_1.data.pageInfo.totalResults === 0) res.status(404).json({msg:"There were no search results", reason:"Bad Request"});
+            if(response_1.data.pageInfo.totalResults === 0) res.status(400).json({msg:"There were no search results", reason:"Bad Request"});
             /* ------- If there are search results for the channel name ------- */
             else {
                 const response_2 = await axios.get ( channelAPIUrl(response_1.data.items[0].snippet.channelId) );
