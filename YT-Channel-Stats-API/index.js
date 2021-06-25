@@ -63,29 +63,29 @@ app.use(helmet());
 
 
 // Root page
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     res.send(`<h1>This is Youtube API</h1>`);
 });
 
 
-app.get('/api/getStats/:id', async (req,res) => {
+app.get('/api/getStats/:id', async ({params},res) => {
 
     /* ------- API Links ------- */
     // search resource link
-    const searchAPIUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=channel&maxResults=25&order=relevance&q=${req.params.id}&key=AIzaSyCOCNhvlWhIJSwL2O2L4kr7zh-6BOy__78`;  
+    const searchAPIUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=channel&maxResults=25&order=relevance&q=${params.id}&key=AIzaSyCvy3iGm4dkUVKXxCbMYpNT6B4aq0ah-AM`;  
     
     // channel resource link function 
-    const channelAPIUrl = (ID) => `https://www.googleapis.com/youtube/v3/channels?id=${ID}&part=id,snippet,statistics&key=AIzaSyCOCNhvlWhIJSwL2O2L4kr7zh-6BOy__78`;
+    const channelAPIUrl = (ID) => `https://www.googleapis.com/youtube/v3/channels?id=${ID}&part=id,snippet,statistics&key=AIzaSyCvy3iGm4dkUVKXxCbMYpNT6B4aq0ah-AM`;
 
     try {
-        const response = await axios.get( channelAPIUrl(req.params.id) );
+        const response = await axios.get( channelAPIUrl(params.id) );
 
         /* -------If there are no search results for the channel ID------- */
         if( response.data.pageInfo.totalResults === 0) {
             const response_1 = await axios.get(searchAPIUrl);
 
             /* ------- If there are no search results for the channel name either ------- */
-            if(response_1.data.pageInfo.totalResults === 0) res.status(400).json({msg:"There were no search results", reason:"Bad Request"});
+            if(response_1.data.pageInfo.totalResults === 0) res.status(404).json({msg:"Could not retrieve channel data because it doesn't exist", reason:"Bad Request"});
             /* ------- If there are search results for the channel name ------- */
             else {
                 const response_2 = await axios.get ( channelAPIUrl(response_1.data.items[0].snippet.channelId) );
@@ -99,6 +99,7 @@ app.get('/api/getStats/:id', async (req,res) => {
 
     } catch (err) {
         console.error(err.response.data.error.code);
+        res.status(err.response.data.error.code).json({msg:"You don't have permission to access this information"})
     }
  
 });

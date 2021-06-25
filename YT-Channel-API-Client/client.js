@@ -31,20 +31,22 @@ app.get('/', (req,res) => {
 
 
 app.post('/', async ({body},res) => {
-    // console.log(body.channelName);
 
-    if(body.channelName === '') res.redirect('/');
-    else {
+
+    const channelName = body.channelName;
+    console.log(channelName);
+
+    if(body.channelName) {
+        console.log(channelName)
         try {
-            const {data,status} = await axios.get(`http://localhost:5500/api/getStats/${body.channelName}`)
+            const {data,status} = await axios.get(`http://localhost:5500/api/getStats/${channelName}`);
             console.log(status);
-            
-    
+
             const channelSubs = data.channelSubs;
             const channelViews = data.channelViews;
             const channelNumOfVids = data.channelNumOfVids;
 
-            // Splits the data n
+            // Splits the data
             const subs = {
                 number: channelSubs.replace(/M|K|B/i, letter => ''),
                 letter: channelSubs.split('').some(char => char === 'M' || char === 'K' || char === 'B') ? 
@@ -80,10 +82,22 @@ app.post('/', async ({body},res) => {
                 id: data.channelID,
                 pic: data.channelPicURL,
             });
-        } catch {
-            (err => console.error(err));
+
+
+            // res.render('index',{msg: data})
+
+        } catch (err) {
+            if(err) {
+                console.log(err.response.status);
+                console.log(err.response.data.msg);
+
+                res.render('errorPage',{msg: err.response.data.msg});
         }
+        }
+    } else {
+        res.render('errorPage',{msg: 'Channel name cannot be empty'});
     }
+
 })
 
 const port = process.env.PORT || 3000;
