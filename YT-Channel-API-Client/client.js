@@ -26,7 +26,10 @@ app.use(express.urlencoded( {extended: false} ));
 
 
 app.get('/', (req,res) => {
-    res.render('index');
+    res.render('index',{
+        showBoxes: false,
+        showError: false,
+    });
 });
 
 
@@ -68,7 +71,9 @@ app.post('/', async ({body},res) => {
         
 
             // Uses handlebars template engine to render a page, with the data being passed through
-            res.render('clientPage', {
+            res.render('index', {
+                showBoxes: true,
+                showError: false,
                 type: data.channelType,
                 subs: data.hiddenSubs ? 'Hidden' : subs,
                 views: views,
@@ -83,19 +88,24 @@ app.post('/', async ({body},res) => {
                 pic: data.channelPicURL,
             });
 
-
-            // res.render('index',{msg: data})
-
         } catch (err) {
             if(err) {
                 console.log(err.response.status);
                 console.log(err.response.data.msg);
 
-                res.render('errorPage',{msg: err.response.data.msg});
-        }
+                res.render('index', {
+                    showBoxes: false,
+                    showError: true,
+                    msg: err.response.data.msg
+                });
+            }
         }
     } else {
-        res.render('errorPage',{msg: 'Channel name cannot be empty'});
+        res.render('index', {
+            showBoxes: false,
+            showError: true,
+            msg: 'Channel name cannot be empty'
+        });
     }
 
 })
