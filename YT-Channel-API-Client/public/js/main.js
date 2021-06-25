@@ -1,6 +1,11 @@
 const urlBody = document.getElementById('url_box').lastElementChild;
 const aboutBody = document.getElementById('description_box').lastElementChild;
 const boxContainer = document.getElementById('box_container');
+const channelBox = document.getElementById('channel_box');
+
+if(showError===false) {
+    document.getElementById('error_message').remove();
+}
 
 if(showBoxes) {
     // If there is no custom channel url
@@ -19,8 +24,6 @@ if(showBoxes) {
     }
 } else {
     boxContainer.remove();
+    channelBox.remove();
 }
 
-if(showError===false) {
-    document.getElementById('error_message').remove();
-}
