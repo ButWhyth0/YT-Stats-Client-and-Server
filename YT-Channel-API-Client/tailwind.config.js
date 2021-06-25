@@ -17,7 +17,19 @@ module.exports = {
       },
       spacing: {
         '112': '27rem',
+        '47': '11.75rem',
       },
+      screens: {
+        'lg': '1060px',
+        'titleWidth': '850px',
+        '3xl': '2100px',
+        '4xl': '2900px',
+      },
+      gridTemplateColumns: {
+        '3x600px':'repeat(3,minmax(0,600px))',
+        '4x600px':'repeat(4,minmax(0,600px))',
+        '5x600px':'repeat(5,minmax(0,600px))',
+      }
     },
   },
   variants: {
@@ -44,6 +56,7 @@ module.exports = {
         },
         '.title': {
           color: 'rgba(102, 102, 102, var(--tw-text-opacity))',
+          textAlign: 'center',
           fontSize: '1.25rem',
           lineHeight: '1.75rem',
           fontFamily: 'Poppins, sans-serif',

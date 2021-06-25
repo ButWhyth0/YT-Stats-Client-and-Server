@@ -74,7 +74,7 @@ app.post('/', async ({body},res) => {
                 name: data.channelName,
                 date: data.channelCreationDate,
                 time: data.channelCreationTime,
-                url: data.channelURL === 'N/A' ? null : `https://youtube.com/\n${data.channelURL}`,
+                url: data.channelURL === 'N/A' ? 'N/A' : data.channelURL,
                 country: data.channelCountry,
                 about: data.channelAbout.replace(/\n+/g, lineBreak => '__'),
                 id: data.channelID,
