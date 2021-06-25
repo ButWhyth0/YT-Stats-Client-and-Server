@@ -72,10 +72,10 @@ app.get('/api/getStats/:id', async ({params},res) => {
 
     /* ------- API Links ------- */
     // search resource link
-    const searchAPIUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=channel&maxResults=25&order=relevance&q=${params.id}&key=AIzaSyCvy3iGm4dkUVKXxCbMYpNT6B4aq0ah-AM`;  
+    const searchAPIUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=channel&maxResults=25&order=relevance&q=${params.id}&key=AIzaSyCOCNhvlWhIJSwL2O2L4kr7zh-6BOy__78`;  
     
     // channel resource link function 
-    const channelAPIUrl = (ID) => `https://www.googleapis.com/youtube/v3/channels?id=${ID}&part=id,snippet,statistics&key=AIzaSyCvy3iGm4dkUVKXxCbMYpNT6B4aq0ah-AM`;
+    const channelAPIUrl = (ID) => `https://www.googleapis.com/youtube/v3/channels?id=${ID}&part=id,snippet,statistics&key=AIzaSyCOCNhvlWhIJSwL2O2L4kr7zh-6BOy__78`;
 
     try {
         const response = await axios.get( channelAPIUrl(params.id) );
@@ -83,6 +83,8 @@ app.get('/api/getStats/:id', async ({params},res) => {
         /* -------If there are no search results for the channel ID------- */
         if( response.data.pageInfo.totalResults === 0) {
             const response_1 = await axios.get(searchAPIUrl);
+
+            // console.log(response_1.data.items[0].snippet.channelId)
 
             /* ------- If there are no search results for the channel name either ------- */
             if(response_1.data.pageInfo.totalResults === 0) res.status(404).json({msg:"Could not retrieve channel data because it doesn't exist", reason:"Bad Request"});

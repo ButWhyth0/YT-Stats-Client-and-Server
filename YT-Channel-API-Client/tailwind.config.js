@@ -27,6 +27,7 @@ module.exports = {
         '4xl': '2900px',
       },
       gridTemplateColumns: {
+        '1x600px':'repeat(1,minmax(0,600px))',
         '3x600px':'repeat(3,minmax(0,600px))',
         '4x600px':'repeat(4,minmax(0,600px))',
         '5x600px':'repeat(5,minmax(0,600px))',
