@@ -72,10 +72,10 @@ app.get('/api/getStats/:id', async ({params},res) => {
 
     /* ------- API Links ------- */
     // search resource link
-    const searchAPIUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=channel&maxResults=25&order=relevance&q=${params.id}&key=AIzaSyCOCNhvlWhIJSwL2O2L4kr7zh-6BOy__78`;  
+    const searchAPIUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=channel&maxResults=25&order=relevance&q=${params.id}&key=AIzaSyCvy3iGm4dkUVKXxCbMYpNT6B4aq0ah-AM`;  
     
     // channel resource link function 
-    const channelAPIUrl = (ID) => `https://www.googleapis.com/youtube/v3/channels?id=${ID}&part=id,snippet,statistics&key=AIzaSyCOCNhvlWhIJSwL2O2L4kr7zh-6BOy__78`;
+    const channelAPIUrl = (ID) => `https://www.googleapis.com/youtube/v3/channels?id=${ID}&part=id,snippet,statistics&key=AIzaSyCvy3iGm4dkUVKXxCbMYpNT6B4aq0ah-AM`;
 
     try {
         const response = await axios.get( channelAPIUrl(params.id) );

@@ -40,10 +40,10 @@ app.post('/', async ({body},res) => {
     console.log(channelName);
 
     if(body.channelName) {
-        console.log(channelName)
+        // console.log(channelName)
         try {
             const {data,status} = await axios.get(`http://localhost:5500/api/getStats/${channelName}`);
-            console.log(status);
+            // console.log(data.hiddenSubs);
 
             const channelSubs = data.channelSubs;
             const channelViews = data.channelViews;

@@ -27,9 +27,15 @@
         <p class="text-3xl body font-normal whitespace-nowrap mx-auto">{{date}}<br>{{time}}</p>
     </div>
 
-    <div  id="url_box" class="box box-padding max-h-47">
-        <h4 class="title text-xl text-opacity-50 mb-2 mx-auto">CUSTOM URL</h4>
-        <p class="text-3xl body font-normal text-center break-all mx-auto">youtube.com/<wbr>{{url}}</p>
+    <div  id="url_box" class="box box-padding flex flex-col max-h-47">
+        <div class="flex flex-row items-center mx-auto mb-2">
+            <h4 class="inline-block title text-xl text-opacity-50 ml-8">CUSTOM URL</h4>
+            <a href="https:youtube.com/channel/{{id}}" target="_blank" class="block h-6 w-6 text-gray-400 opacity-60 hover:opacity-100 items-center rounded-md ml-4" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">
+                <img id="web_link" class="h-4 ml-1 mt-1" src="../assets/web-link-gray-400.svg">
+            </a>
+        </div>
+
+        <p class="body font-normal text-3xl text-center break-words mx-auto">youtube.com/<wbr>{{url}}</p>
     </div>
     
     <div id="country_box" class="box box-padding max-h-47">
@@ -44,6 +50,9 @@
     
 </div>
 <script>
-aboutText='{{about}}';
-showBoxes={{showBoxes}};
+const aboutText='{{about}}';
+const showBoxes={{showBoxes}};
+const channelID='{{id}}'
+const channelUrl ='{{url}}'
+const channelSubs = '{{subs}}'
 </script>
