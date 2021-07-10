@@ -45,9 +45,7 @@ app.post('/', async ({body},res) => {
             const {data,status} = await axios.get(`http://localhost:5500/api/getStats/${channelName}`);
             // console.log(data.hiddenSubs);
 
-            const channelSubs = data.channelSubs;
-            const channelViews = data.channelViews;
-            const channelNumOfVids = data.channelNumOfVids;
+            const {channelSubs, channelViews, channelNumOfVids} = data
 
             // Splits the data
             const subs = {
@@ -110,6 +108,6 @@ app.post('/', async ({body},res) => {
 
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 app.listen(port, () => console.log(`Client is running on port: ${port}`));
