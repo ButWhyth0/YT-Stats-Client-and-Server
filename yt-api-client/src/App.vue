@@ -60,8 +60,9 @@
             </a>
         </div>
 
-        <p v-if="longName===false" class="body font-normal text-3xl text-center break-words mx-auto" >youtube.com/<wbr>{{url}}</p>
-        <p v-else-if="longName===true" class="body font-normal text-3xl text-center break-all mx-auto" >youtube.com/<wbr>{{url}}</p>
+        <p v-if="longName===false && urlExists=== true" class="body font-normal text-3xl text-center break-words mx-auto" >youtube.com/<wbr>{{url}}</p>
+        <p v-if="longName===false && urlExists=== false" class="body font-light text-6xl text-center mx-auto" >N/A</p>
+        <p v-if="longName===true && urlExists=== true" class="body font-normal text-3xl text-center break-all mx-auto" >youtube.com/<wbr>{{url}}</p>
     </div>
     
     <div id="country_box" v-if="showBoxes" class="box box-padding max-h-47">
@@ -91,10 +92,7 @@ export default {
       pic: '',
       name: '',
       id: '',
-      subs: {
-        number: '',
-        letter: '',
-      },
+      subs: {},
       views: {
         number: '',
         letter: '',
@@ -111,6 +109,7 @@ export default {
       showBoxes: false,
       showError: false,
       longName: false,
+      urlExists: true,
     }
   },
   methods: { 
@@ -122,6 +121,7 @@ export default {
         const {data} = await axios(`http://localhost:5500/api/getStats/${this.chanName}`)
         const {channelSubs,channelViews,channelNumOfVids,channelName,channelCreationDate,channelCreationTime,channelURL,channelCountry,channelAbout,channelID,hiddenSubs,channelPicURL} = data;
 
+        this.chanName = '';
         // console.log(channelName,channelSubs,channelViews,channelNumOfVids,channelName,channelCreationDate,channelCreationTime,channelURL,channelCountry,channelAbout,channelID,hiddenSubs,channelPicURL);
 
         // If name of channel is longer than 15 chars, will add breakpoints between every character, instead of just every word
@@ -139,10 +139,18 @@ export default {
         this.name = channelName;
         this.id = channelID;
 
-        // Inserting the sub number and letter
-        this.subs.number = channelSubs.replace(/M|K|B/i, letter => '');
-        this.subs.letter = channelSubs.split('').some(char => char === 'M' || char === 'K' || char === 'B') ? 
-          channelSubs.split('').find(char => char === 'M' || char === 'K' || char === 'B') : '';
+        // If the sub count is hidden
+        if(hiddenSubs) {
+          this.subs.letter = 'Hidden';
+
+        // If the sub count is not hidden
+        } else {
+
+          // Inserting the sub number and letter
+          this.subs.number = channelSubs.replace(/M|K|B/i, letter => '');
+          this.subs.letter = channelSubs.split('').some(char => char === 'M' || char === 'K' || char === 'B') ? 
+            channelSubs.split('').find(char => char === 'M' || char === 'K' || char === 'B') : '';
+        }
 
         // Inserting the views number and letter
         this.views.number = channelViews.replace(/M|K|B/i, letter => '');
@@ -160,6 +168,12 @@ export default {
         this.url = channelURL;
         this.country = channelCountry;
         this.about = channelAbout;
+
+        if(channelURL==='N/A') {
+          this.urlExists = false;
+        } else {
+          this.urlExists = true;
+        }
 
         
         
