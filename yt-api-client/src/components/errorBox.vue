@@ -1,0 +1,15 @@
+<template>
+
+    <span id="error_message"
+    class="w-120 bg-red-200 bg-opacity-100 text-center font-Poppins font-light text-xl text-red-700 rounded-lg border border-red-400 p-4 mt-8 mx-auto" >{{errorMessage}}</span>
+
+</template>
+
+<script>
+export default {
+    name: 'ErrorBox',
+    props: {
+        errorMessage: String,
+    },
+}
+</script>
