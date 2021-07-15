@@ -25,9 +25,7 @@
     </div>
 </div>
 
-  <ChannelData v-if="showBoxes" :name="channelName" :pic="pictureURL" :subsNumber="subs.number" :subsLetter="subs.letter" :viewsNumber="views.number" :viewsLetter="views.letter"
-  :totalVideosNumber="totalVideos.number" :totalVideosLetter="totalVideos.letter" :date="date" :time="time" :id="id" :longName="longName" :urlExists="urlExists"
-  :url="customURL" :country="country" :about="about"/>
+  <ChannelData v-if="showBoxes" :subs="subs" :views="views" :totalVideos="totalVideos" :data="boxData" :longName="longName" :urlExists="urlExists"/>
 
 </template>
 
@@ -48,21 +46,14 @@ export default {
     return {
       errorMessage: '',
       enteredName: '',
-      pictureURL: '',
-      name: '',
-      id: '',
       subs: {},
       views: {},
       totalVideos: {},
-      date: '',
-      time: '',
-      customURL: '',
-      country: '',
-      about: '',
       showBoxes: false,
       showError: false,
       longName: false,
       urlExists: true,
+      boxData: {},
     }
   },
   methods: { 
@@ -73,10 +64,11 @@ export default {
 
       try {
         const {data} = await axios(`http://localhost:5500/api/getStats/${this.enteredName}`)
-        const {channelSubs,channelViews,channelNumOfVids,channelName,channelCreationDate,channelCreationTime,channelURL,channelCountry,channelAbout,channelID,hiddenSubs,channelPicURL} = data;
+        const {channelSubs,channelViews,channelNumOfVids,channelURL,hiddenSubs,channelAbout} = data;
+
+        this.boxData = data;
 
         this.enteredName = '';
-        // console.log(channelName,channelSubs,channelViews,channelNumOfVids,channelName,channelCreationDate,channelCreationTime,channelURL,channelCountry,channelAbout,channelID,hiddenSubs,channelPicURL);
 
         // If name of channel is longer than 15 chars, will add breakpoints between every character, instead of just every word
         if(channelURL.length>15) {
@@ -88,16 +80,6 @@ export default {
         // Data boxes will be shown, and error boxes will be removed from page
         this.showBoxes = true;
         this.showError = false;
-
-        // Inserting the data
-        this.pictureURL = channelPicURL;
-        this.channelName = channelName;
-        this.id = channelID;
-        this.date = channelCreationDate;
-        this.time = channelCreationTime;
-        this.customURL = channelURL;
-        this.country = channelCountry;
-        this.about = channelAbout;
 
         // If the sub count is hidden
         if(hiddenSubs) {
@@ -127,20 +109,16 @@ export default {
         }
         
       } catch (err) {
-        
         // Error box will be shown, and data boxes will be removed from page
         this.showError = true;
         this.showBoxes = false;
-        // console.log(`There was an error!\n`,err);
 
         // If the channel name field is empty
         if(this.enteredName==='') {
-          // console.log('No inserted channel name',err.response);
           this.errorMessage = `Channel name cannot be empty`;
-
+          
         // If matchable name is entered
         } else {
-          // console.log('Not real channel name',err);
           this.errorMessage = err.response.data.msg;
           this.enteredName = '';
         }
